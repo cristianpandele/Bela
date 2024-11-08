@@ -143,7 +143,10 @@ int Spi_Codec::initCodec(){
 	if(_isBeast)
 	{
 		// wclock format = 50/50, 16 channels, normal bclock, inverted wclock, bclock / wclock in master mode
-		writeRegister(REG_ADC_CONTROL_2, 0x7C);
+		// writeRegister(REG_ADC_CONTROL_2, 0x7C);
+
+		// wclock format = 50/50, 16 channels, normal bclock, inverted wclock, bclock in master mode / wclock in slave mode
+		writeRegister(REG_ADC_CONTROL_2, 0x74);
 	} else {
 		// wclock format = 50/50, 8 channels, normal bclock, inverted wclock, bclock / wclock in master mode
 		writeRegister(REG_ADC_CONTROL_2, 0x6C);
@@ -372,7 +375,8 @@ McaspConfig& Spi_Codec::getMcaspConfig() {
         mcaspConfig.params.ahclkIsInternal = true; // ignored in practice
         mcaspConfig.params.ahclkFreq = 12000000; // ignored in practice
         mcaspConfig.params.aclkIsInternal = false;
-        mcaspConfig.params.wclkIsInternal = false;
+        // mcaspConfig.params.wclkIsInternal = false;
+        mcaspConfig.params.wclkIsInternal = true;
         mcaspConfig.params.wclkIsWord = true;
         mcaspConfig.params.wclkFalling = false;
         mcaspConfig.params.externalSamplesRisingEdge = true;
